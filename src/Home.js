@@ -3,6 +3,8 @@ import { TextInput } from "./TextInput.js";
 import { AppBar } from "./AppBar.js";
 import { Search } from "./Search.js";
 import { Repositories } from "./Repositories.js";
+import Chip from "@material-ui/core/Chip";
+import Avatar from "@material-ui/core/Avatar";
 
 import "./home.css";
 
@@ -41,37 +43,26 @@ export class Home extends Component {
     });
   };
   render() {
-    const { renderRepos } = this.state;
+    const { username, git, avatar } = this.state;
     return (
       <div>
         <AppBar />
-        <body>
-          <br />
-          <br />
-          <br />
-          <TextInput
-            handleUsername={this.handleUserNameChanged("username")}
-            valeur={this.state.username}
+        <TextInput
+          handleUsername={this.handleUserNameChanged("username")}
+          valeur={username}
+        />
+        <Search
+          handleAvatar={this.handleAvatarChanged}
+          handleGit={this.handleGitChanged}
+          user={username}
+        />
+        <div>
+          <Chip
+            avatar={<Avatar alt="Pas d'image" src={avatar} />}
+            label={username}
           />
-          <Search
-            handleAvatar={this.handleAvatarChanged}
-            handleGit={this.handleGitChanged}
-            user={this.state.username}
-          />
-          <div className="enLigne">
-            <p>{this.state.username}</p>
-            <img className="roundedImage" src={this.state.avatar} />
-            <ul>
-              {this.state.git.length && (
-                <Repositories
-                  repos={this.state.git}
-                  user={this.state.username}
-                  unmountRepos={this.handleReposUnmount}
-                />
-              )}
-            </ul>
-          </div>
-        </body>
+          <ul>{git.length && <Repositories repos={git} user={username} />}</ul>
+        </div>
       </div>
     );
   }

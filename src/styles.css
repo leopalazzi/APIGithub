@@ -2,3 +2,9 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.entete {
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getUser, getRepos } from "./API/GithubAPI.js";
 import { Button } from "@material-ui/core";
+
 export class Search extends Component {
   handleClick = async () => {
     const { user, handleAvatar, handleGit } = this.props;
@@ -13,7 +14,9 @@ export class Search extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.handleClick}> Search</Button>
+        <Button variant="contained" color="primary" onClick={this.handleClick}>
+          Search
+        </Button>
       </div>
     );
   }

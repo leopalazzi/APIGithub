@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React, { Component } from "react"; // on importe createContext qui servira à la création d'un ou plusieurs contextes
 import { TextInput } from "./TextInput.js";
-import { AppBar } from "./AppBar.js";
 import { Search } from "./Search.js";
 import { Repositories } from "./Repositories.js";
 import Chip from "@material-ui/core/Chip";
@@ -14,15 +13,15 @@ export class Home extends Component {
   state = {
     username: "",
     avatar: "",
-    git: {},
-    renderRepos: true
+    git: {}
   };
 
+  componentDidUpdate(_, prevState) {
+    const { git } = this.state;
+    if (prevState.git !== git) console.log("changement");
+  }
   handleReposUnmount = () => {
     this.setState({ renderRepos: false });
-  };
-  handleClick = () => {
-    console.log("clik");
   };
 
   handleUserNameChanged = key => userName => {
@@ -45,8 +44,7 @@ export class Home extends Component {
   render() {
     const { username, git, avatar } = this.state;
     return (
-      <div>
-        <AppBar />
+      <div className="milieu">
         <TextInput
           handleUsername={this.handleUserNameChanged("username")}
           valeur={username}
@@ -57,11 +55,21 @@ export class Home extends Component {
           user={username}
         />
         <div>
-          <Chip
-            avatar={<Avatar alt="Pas d'image" src={avatar} />}
-            label={username}
-          />
-          <ul>{git.length && <Repositories repos={git} user={username} />}</ul>
+          {git.length && (
+            <Chip
+              avatar={<Avatar alt="Pas d'image" src={avatar} />}
+              label={username}
+            />
+          )}
+          <ul>
+            {git.length && (
+              <Repositories
+                repos={git}
+                user={username}
+                history={this.props.history}
+              />
+            )}
+          </ul>
         </div>
       </div>
     );

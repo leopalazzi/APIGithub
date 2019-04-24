@@ -4,6 +4,7 @@ import { Search } from "./Search.js";
 import { Repositories } from "./Repositories.js";
 import Chip from "@material-ui/core/Chip";
 import Avatar from "@material-ui/core/Avatar";
+import Input from "@material-ui/core/Input";
 
 import "./home.css";
 
@@ -44,17 +45,20 @@ export class Home extends Component {
   render() {
     const { username, git, avatar } = this.state;
     return (
-      <div className="milieu">
-        <TextInput
-          handleUsername={this.handleUserNameChanged("username")}
-          valeur={username}
-        />
-        <Search
-          handleAvatar={this.handleAvatarChanged}
-          handleGit={this.handleGitChanged}
-          user={username}
-        />
-        <div>
+      <div>
+        <div className="milieu">
+          <TextInput
+            handleUsername={this.handleUserNameChanged("username")}
+            valeur={username}
+          />
+          <Search
+            handleAvatar={this.handleAvatarChanged}
+            handleGit={this.handleGitChanged}
+            user={username}
+            className="milieu2"
+          />
+        </div>
+        <div className="aumilieu">
           {git.length && (
             <Chip
               avatar={<Avatar alt="Pas d'image" src={avatar} />}
